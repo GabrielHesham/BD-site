@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel = "icon"  href="images/bear.jpg" >
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>HAPPY-BIRTHDAY Baby 💗 </title>
+  <style>
+    /* soft & cute global style */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #ffe9f1 0%, #ffd9e5 40%, #fff3f7 100%);
+      font-family: 'Segoe UI', 'Poppins', 'Quicksand', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* floating soft pastel blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(70px);
+      opacity: 0.35;
+      z-index: 0;
+      animation: floatBlob 12s infinite alternate ease-in-out;
+      pointer-events: none;
+    }
+
+    .blob1 {
+      width: 300px;
+      height: 300px;
+      background: #ffc2d4;
+      top: -60px;
+      left: -40px;
+      animation-duration: 14s;
+    }
+
+    .blob2 {
+      width: 250px;
+      height: 250px;
+      background: #fce1b9;
+      bottom: 10px;
+      right: -30px;
+      animation-duration: 18s;
+    }
+
+    .blob3 {
+      width: 200px;
+      height: 200px;
+      background: #d6f0fa;
+      top: 40%;
+      left: 70%;
+      animation-duration: 16s;
+    }
+
+
+
+        /* ⭐ FLOATING EMOJI STICKERS BACKGROUND ⭐ */
+    .floating-sticker {
+      position: fixed;
+      z-index: 1;
+      pointer-events: none;
+      user-select: none;
+      opacity: 0.45;
+      filter: blur(0.3px);
+      animation: floatSticker var(--duration, 20s) ease-in-out infinite alternate;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes floatSticker {
+      0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+        opacity: 0.3;
+      }
+      25% {
+        opacity: 0.55;
+      }
+      50% {
+        transform: translate(30px, -40px) rotate(15deg) scale(1.1);
+        opacity: 0.4;
+      }
+      75% {
+        transform: translate(-15px, 25px) rotate(-10deg) scale(0.95);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translate(20px, -30px) rotate(8deg) scale(1.05);
+        opacity: 0.35;
+      }
+    }
+
+    @keyframes floatBlob {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, -40px) scale(1.15); }
+    }
+
+    /* main soft card */
+    .birthday-card {
+      position: relative;
+      z-index: 10;
+      max-width: 700px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-radius: 48px;
+      padding: 2.5rem 2rem 2.8rem;
+      box-shadow: 0 25px 50px -12px rgba(240, 130, 170, 0.4),
+                  0 0 0 2px rgba(255, 215, 230, 0.6) inset,
+                  0 0 0 1px rgba(255, 255, 255, 0.9);
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 600;
+      color: #b85c7c;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.25rem;
+      text-shadow: 0 2px 10px rgba(255, 180, 200, 0.7);
+      word-break: break-word;
+    }
+
+    .subhead {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #c97b98;
+      margin-bottom: 1.8rem;
+      background: rgba(255, 235, 240, 0.7);
+      display: inline-block;
+      padding: 0.5rem 1.8rem;
+      border-radius: 60px;
+      backdrop-filter: blur(4px);
+      letter-spacing: 1px;
+    }
+
+
+
+    /* cute photo section */
+    .photo-garden {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1.3rem;
+      margin: 2rem 0 2.3rem;
+    }   
+
+    .cute-photo {
+      width: 170px;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 25px;
+    padding: 7px;
+      background: #fffafc;
+      box-shadow:
+        0 10px 25px rgba(220, 120, 150, 0.25),
+        0 0 0 1px rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
+    }
+
+    /* slightly different rotations for a cute scrapbook look */
+    .cute-photo:nth-child(1) {
+      transform: rotate(-4deg);
+    }
+
+    .cute-photo:nth-child(2) {
+      transform: rotate(2deg);
+    }
+
+    .cute-photo:nth-child(3) {
+      transform: rotate(-3deg);
+    }
+
+    .cute-photo:hover {
+      transform: scale(1.07) rotate(0deg);
+      box-shadow:
+        0 18px 30px rgba(220, 120, 150, 0.3);
+      z-index: 2;
+    }
+
+    /* mobile */
+    @media (max-width: 500px) {
+      .cute-photo {
+        width: 110px;
+        height: 110px;
+      }
+
+      .photo-garden {
+        gap: 0.8rem;
+      }
+    }
+
+    
+
+    
+
+    .cute-gif:hover {
+      transform: scale(1.1) rotate(3deg);
+    }
+
+
+    /* button collection */
+    .button-bouquet {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0 1rem;
+    }
+
+    .cute-btn {
+      background: #ffe4ec;
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 60px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #a84e6c;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      box-shadow: 0 10px 20px -5px rgba(220, 120, 150, 0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      background: rgba(255, 230, 240, 0.8);
+    }
+
+    .cute-btn:hover {
+      background: #ffd1df;
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -8px #e78aa7;
+      color: #7c3e55;
+    }
+
+    .cute-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 5px 15px #f3a7be;
+    }
+
+
+    .cute-btn {
+      text-decoration: none;
+    }
+
+    .heart-btn {
+      background: #ffcadb;
+    }
+
+    /* hidden extra love message */
+    .love-note {
+      margin-top: 1.8rem;
+      font-size: 1.4rem;
+      color: #be6482;
+      background: rgba(255, 245, 248, 0.9);
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      display: none;
+      font-weight: 500;
+      animation: popIn 0.5s ease;
+      box-shadow: 0 6px 12px rgba(230, 130, 160, 0.2);
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.7); }
+      80% { transform: scale(1.05); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* confetti / hearts sparkle */
+    .sparkle {
+      font-size: 1.8rem;
+      margin: 0 2px;
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      font-size: 1rem;
+      color: #ba7a93;
+      opacity: 0.9;
+    }
+
+    /* responsive */
+    @media (max-width: 500px) {
+      .birthday-card {
+        padding: 1.8rem 1.2rem;
+        border-radius: 40px;
+      }
+      h1 {
+        font-size: 2.2rem;
+      }
+      .subhead {
+        font-size: 1.2rem;
+      }
+      .cute-gif {
+        width: 70px;
+        height: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- soft background blobs -->
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+
+
+    <!-- 🌸 FLOATING EMOJI STICKERS (very subtle) 🌸 -->
+  <div class="floating-sticker" style="top: 12%; left: 8%; font-size: 2rem; --duration: 22s; --delay: 0s;">😻</div>
+  <div class="floating-sticker" style="top: 20%; right: 12%; font-size: 2.5rem; --duration: 25s; --delay: 2s;">💗</div>
+  <div class="floating-sticker" style="top: 65%; left: 15%; font-size: 1.8rem; --duration: 20s; --delay: 1s;">🧸</div>
+  <div class="floating-sticker" style="top: 75%; right: 20%; font-size: 2.2rem; --duration: 28s; --delay: 3s;">🌸</div>
+  <div class="floating-sticker" style="top: 40%; left: 5%; font-size: 1.5rem; --duration: 24s; --delay: 4s;">🍓</div>
+  <div class="floating-sticker" style="top: 55%; right: 8%; font-size: 2rem; --duration: 26s; --delay: 0.5s;">🦋</div>
+  <div class="floating-sticker" style="top: 30%; left: 85%; font-size: 1.7rem; --duration: 23s; --delay: 1.5s;">✨</div>
+  <div class="floating-sticker" style="top: 85%; left: 50%; font-size: 2.3rem; --duration: 27s; --delay: 2.5s;">🎂</div>
+  <div class="floating-sticker" style="top: 10%; left: 40%; font-size: 1.6rem; --duration: 21s; --delay: 0.8s;">💌</div>
+
+  <!-- main birthday card -->
+  <main class="birthday-card">
+    <h1>🎀 HAPPY BIRTHDAY!!! 🎀</h1>
+    <div class="subhead">🙈 My love 🙈</div>
+
+    <!-- our cute photos -->
+    <div class="photo-garden">
+
+      <img
+        src="images/prom2.jpg"
+        alt="A special memory"
+        class="cute-photo"
+      >
+
+      <img
+        src="images/us.jpg"
+        alt="A special memory"
+        class="cute-photo"
+      >
+
+      <img
+        src="images/prom.jpg"
+        alt="A special memory"
+        class="cute-photo"
+      >
+
+    </div>
+
+    <!-- interactive button bouquet -->
+    <div class="button-bouquet">
+      
+      <a href="video.html" class="cute-btn heart-btn">
+        <span>😼</span> Click me
+      </a>
+      
+      <a href="letter.html" class="cute-btn heart-btn">
+        <span>💌</span> READ ME 🤍
+      </a>
+      <button class="cute-btn" id="surpriseButton">
+        <span>🎁</span> surprise
+      </button>
+    </div>
+
+    <!-- hidden love note / message area -->
+    <div id="loveMessage" class="love-note">
+      🧸 you're my favorite person ever 🧸
+    </div>
+
+    <!-- extra cute sparkles & little message -->
+    <div style="margin: 1.5rem 0 0.8rem; font-size: 1.3rem;">
+      <span class="sparkle">🌸</span>
+      <span class="sparkle">✨</span>
+      <span class="sparkle">🍰</span>
+      <span class="sparkle">💗</span>
+      <span class="sparkle">🎂</span>
+      <span class="sparkle">🐻</span>
+      <span class="sparkle">🌸</span>
+    </div>
+
+    <footer>
+      made with <span style="color: #e04070;">♥</span> for the sweetest girl
+    </footer>
+  </main>
+
+  <script>
+    (function() {
+      // cute button interactions
+      
+      
+      const surpriseBtn = document.getElementById('surpriseButton');
+      const loveMessageDiv = document.getElementById('loveMessage');
+
+      // Helper to show a temporary cute message
+      function showTemporaryMessage(text, emoji = '🌸') {
+        loveMessageDiv.style.display = 'block';
+        loveMessageDiv.innerHTML = `${emoji} ${text} ${emoji}`;
+        // hide after 3.5 seconds
+        clearTimeout(window.messageTimeout);
+        window.messageTimeout = setTimeout(() => {
+          loveMessageDiv.style.display = 'none';
+        }, 3500);
+      }
+
+
+      
+
+      // Surprise button: extra cute confetti / random sweet message
+      surpriseBtn.addEventListener('click', () => {
+        const sweetMessages = [
+          '🎈 Stay tuned tmr for the suprise :) !! 🎈',
+          
+        ];
+        const randomMsg = sweetMessages[Math.floor(Math.random() * sweetMessages.length)];
+        showTemporaryMessage(randomMsg, '🎀');
+        // tiny confetti effect (visual only)
+        surpriseBtn.innerHTML = '<span>🎉</span> yay!';
+        setTimeout(() => {
+          surpriseBtn.innerHTML = '<span>🎁</span> surprise';
+        }, 400);
+      });
+
+      // initial hidden message state
+      loveMessageDiv.style.display = 'none';
+    })();
+  </script>
+</body>
+</html>

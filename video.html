@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <link rel="icon" href="images/bear.jpg">
+
+```
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>A little message for you 💗</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        min-height: 100vh;
+        background: linear-gradient(
+            145deg,
+            #ffe9f1 0%,
+            #ffd9e5 40%,
+            #fff3f7 100%
+        );
+
+        font-family:
+            'Segoe UI',
+            'Poppins',
+            'Quicksand',
+            system-ui,
+            -apple-system,
+            sans-serif;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 25px;
+        overflow-x: hidden;
+
+        position: relative;
+    }
+
+
+    /* =========================
+       SOFT BACKGROUND BLOBS
+    ========================== */
+
+    .blob {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(70px);
+        opacity: 0.35;
+        z-index: 0;
+        pointer-events: none;
+
+        animation: floatBlob 12s infinite alternate ease-in-out;
+    }
+
+    .blob1 {
+        width: 300px;
+        height: 300px;
+        background: #ffc2d4;
+
+        top: -70px;
+        left: -50px;
+
+        animation-duration: 14s;
+    }
+
+    .blob2 {
+        width: 260px;
+        height: 260px;
+        background: #fce1b9;
+
+        bottom: -50px;
+        right: -40px;
+
+        animation-duration: 18s;
+    }
+
+    .blob3 {
+        width: 210px;
+        height: 210px;
+        background: #d6f0fa;
+
+        top: 45%;
+        left: 72%;
+
+        animation-duration: 16s;
+    }
+
+    @keyframes floatBlob {
+
+        0% {
+            transform: translate(0, 0) scale(1);
+        }
+
+        100% {
+            transform: translate(30px, -40px) scale(1.15);
+        }
+
+    }
+
+
+    /* =========================
+       FLOATING STICKERS
+    ========================== */
+
+    .sticker {
+        position: fixed;
+        z-index: 1;
+
+        font-size: 2rem;
+
+        pointer-events: none;
+
+        animation: stickerFloat 5s ease-in-out infinite;
+    }
+
+    .sticker1 {
+        top: 8%;
+        left: 8%;
+        transform: rotate(-12deg);
+    }
+
+    .sticker2 {
+        top: 13%;
+        right: 9%;
+        transform: rotate(10deg);
+        animation-delay: 1s;
+    }
+
+    .sticker3 {
+        bottom: 13%;
+        left: 9%;
+        transform: rotate(-8deg);
+        animation-delay: 2s;
+    }
+
+    .sticker4 {
+        bottom: 9%;
+        right: 10%;
+        transform: rotate(12deg);
+        animation-delay: 0.5s;
+    }
+
+    @keyframes stickerFloat {
+
+        0%, 100% {
+            transform: translateY(0) rotate(-8deg);
+        }
+
+        50% {
+            transform: translateY(-10px) rotate(5deg);
+        }
+
+    }
+
+
+    /* =========================
+       MAIN CARD
+    ========================== */
+
+    .video-card {
+
+        position: relative;
+        z-index: 10;
+
+        width: 100%;
+        max-width: 850px;
+
+        background: rgba(255, 255, 255, 0.76);
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+
+        border-radius: 48px;
+
+        padding: 2.5rem 2.5rem 2.8rem;
+
+        text-align: center;
+
+        border: 1px solid rgba(255, 255, 255, 0.85);
+
+        box-shadow:
+            0 25px 50px -12px rgba(240, 130, 170, 0.4),
+            0 0 0 2px rgba(255, 215, 230, 0.6) inset,
+            0 0 0 1px rgba(255, 255, 255, 0.9);
+
+        animation: cardAppear 0.8s ease;
+    }
+
+    @keyframes cardAppear {
+
+        from {
+            opacity: 0;
+            transform: translateY(25px) scale(0.97);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+    }
+
+
+    /* =========================
+       TITLE
+    ========================== */
+
+    h1 {
+
+        color: #b85c7c;
+
+        font-size: 2.7rem;
+        font-weight: 600;
+
+        margin-bottom: 0.4rem;
+
+        text-shadow:
+            0 2px 10px rgba(255, 180, 200, 0.7);
+    }
+
+    .subtitle {
+
+        display: inline-block;
+
+        color: #c97b98;
+
+        background: rgba(255, 235, 240, 0.75);
+
+        padding: 0.55rem 1.7rem;
+
+        border-radius: 60px;
+
+        font-size: 1.25rem;
+
+        margin-bottom: 2rem;
+
+        letter-spacing: 0.5px;
+    }
+
+
+    /* =========================
+       VIDEO FRAME
+    ========================== */
+
+    .video-wrapper {
+
+        width: 100%;
+
+        background: #fff8fb;
+
+        padding: 10px;
+
+        border-radius: 30px;
+
+        box-shadow:
+            0 12px 30px rgba(220, 120, 150, 0.25),
+            0 0 0 1px rgba(255, 255, 255, 0.9);
+
+        transform: rotate(-1deg);
+
+        transition: 0.3s ease;
+
+        margin-bottom: 2rem;
+    }
+
+    .video-wrapper:hover {
+
+        transform: rotate(0deg) scale(1.01);
+
+        box-shadow:
+            0 18px 35px rgba(220, 120, 150, 0.3);
+    }
+
+    video {
+
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    border-radius: 22px;
+
+    background: #f8dce7;
+
+    }
+
+
+    /* =========================
+       LITTLE MESSAGE
+    ========================== */
+
+    .message {
+
+        color: #be6482;
+
+        font-size: 1.15rem;
+
+        line-height: 1.6;
+
+        background: rgba(255, 245, 248, 0.9);
+
+        padding: 1rem 1.5rem;
+
+        border-radius: 30px;
+
+        box-shadow:
+            0 6px 12px rgba(230, 130, 160, 0.15);
+
+        margin-bottom: 1.8rem;
+    }
+
+
+    /* =========================
+       BACK BUTTON
+    ========================== */
+
+    .back-btn {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        text-decoration: none;
+
+        background: rgba(255, 230, 240, 0.85);
+
+        color: #a84e6c;
+
+        padding: 0.85rem 1.7rem;
+
+        border-radius: 60px;
+
+        font-size: 1.1rem;
+
+        font-weight: 600;
+
+        border: 1px solid rgba(255, 255, 255, 0.9);
+
+        box-shadow:
+            0 10px 20px -5px rgba(220, 120, 150, 0.3);
+
+        transition: 0.25s ease;
+    }
+
+    .back-btn:hover {
+
+        background: #ffd1df;
+
+        transform: translateY(-4px);
+
+        box-shadow:
+            0 15px 25px -8px #e78aa7;
+
+        color: #7c3e55;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+
+        margin-top: 1.8rem;
+
+        color: #ba7a93;
+
+        font-size: 0.95rem;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 600px) {
+
+        body {
+            padding: 15px;
+        }
+
+        .video-card {
+
+            padding: 1.8rem 1.1rem 2rem;
+
+            border-radius: 38px;
+        }
+
+        h1 {
+            font-size: 2.15rem;
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+        }
+
+        .video-wrapper {
+            padding: 7px;
+            border-radius: 24px;
+        }
+
+        video {
+            border-radius: 18px;
+        }
+
+        .sticker {
+            font-size: 1.5rem;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<!-- soft background blobs -->
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+
+<!-- cute floating stickers -->
+
+<div class="sticker sticker1">🎀</div>
+<div class="sticker sticker2">💗</div>
+<div class="sticker sticker3">🧸</div>
+<div class="sticker sticker4">🌸</div>
+
+
+<!-- main content -->
+
+<main class="video-card">
+
+    <h1>😾 WATCH NOR 😾</h1>
+
+    <div class="subtitle">
+        💗 I filmed this because you deserve something special 💗
+    </div>
+
+
+    <!-- VIDEO -->
+
+    <div class="video-wrapper">
+
+        <video controls playsinline>
+
+            <!-- CHANGE THIS TO YOUR VIDEO FILE -->
+
+            <source src="video.MP4" type="video/mp4">
+
+            Your browser does not support the video element.
+
+        </video>
+
+    </div>
+
+
+    <!-- message -->
+
+    <div class="message">
+
+         I made this little video just for you.
+        <br>
+        Sooo... press play and kyi lik 💗
+
+    </div>
+
+
+    <!-- back button -->
+
+    <a href="index.html" class="back-btn">
+        🎀 Back to my birthday page
+    </a>
+
+
+    <footer>
+        made with <span style="color:#e04070;">♥</span> just for you
+    </footer>
+
+</main>
+```
+
+</body>
+
+</html>

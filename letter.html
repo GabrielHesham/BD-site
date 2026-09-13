@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="images/images.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>A Little Letter For You 💌</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 30px 20px;
+      background: linear-gradient(145deg, #ffe9f1 0%, #ffd9e5 45%, #fff3f7 100%);
+      font-family: 'Segoe UI', 'Poppins', 'Quicksand', system-ui, sans-serif;
+      color: #6f4b55;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* soft blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(75px);
+      opacity: 0.30;
+      z-index: 0;
+      pointer-events: none;
+      animation: floatBlob 14s infinite alternate ease-in-out;
+    }
+    .blob1 { width: 300px; height: 300px; background: #ffc2d4; top: -80px; left: -50px; }
+    .blob2 { width: 280px; height: 280px; background: #fce1b9; bottom: -50px; right: -50px; animation-duration: 18s; }
+    .blob3 { width: 220px; height: 220px; background: #d6f0fa; top: 40%; right: 10%; animation-duration: 16s; }
+    @keyframes floatBlob {
+      0% { transform: translate(0,0) scale(1); }
+      100% { transform: translate(30px, -40px) scale(1.15); }
+    }
+
+    /* floating hearts (background) */
+    .bg-heart {
+      position: fixed;
+      font-size: 1.6rem;
+      opacity: 0.30;
+      pointer-events: none;
+      animation: floatHeart 7s infinite ease-in-out;
+      z-index: 0;
+    }
+    .bg-heart:nth-child(5) { top: 12%; left: 6%; animation-delay: 0s; }
+    .bg-heart:nth-child(6) { top: 28%; right: 5%; animation-delay: 1.2s; }
+    .bg-heart:nth-child(7) { bottom: 22%; left: 8%; animation-delay: 2.5s; }
+    .bg-heart:nth-child(8) { bottom: 8%; right: 10%; animation-delay: 0.8s; }
+    @keyframes floatHeart {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-18px) rotate(6deg); }
+    }
+
+
+
+    .highlight {
+      color: #b85c7c;
+      font-weight: 600;
+    }
+
+    /* ---------- ENVELOPE CONTAINER ---------- */
+    .envelope-wrapper {
+      position: relative;
+      z-index: 20;
+      max-width: 780px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .envelope-wrapper:hover {
+      transform: scale(1.01);
+    }
+
+    /* the envelope card */
+    .envelope-card {
+      background: #fffaf5;
+      border-radius: 60px 60px 40px 40px;
+      padding: 2.8rem 2rem 2.5rem;
+      box-shadow: 0 25px 50px -12px rgba(190, 110, 140, 0.35),
+                  0 0 0 2px rgba(255, 215, 230, 0.6) inset;
+      width: 100%;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.8);
+      transition: all 0.4s ease;
+      position: relative;
+      backdrop-filter: blur(4px);
+      background: rgba(255, 250, 248, 0.85);
+    }
+
+    /* envelope flap (cute top triangle) */
+    .envelope-flap {
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      background: #ffd9e5;
+      width: 160px;
+      height: 45px;
+      border-radius: 80px 80px 20px 20px;
+      box-shadow: 0 4px 12px rgba(200, 120, 140, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      color: #b85c7c;
+      letter-spacing: 2px;
+      opacity: 0.9;
+      border: 1px solid rgba(255,255,255,0.7);
+    }
+
+    .envelope-icon {
+      font-size: 3.8rem;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+      filter: drop-shadow(0 6px 10px rgba(200, 100, 130, 0.2));
+    }
+
+    .envelope-title {
+      font-size: 2.2rem;
+      font-weight: 600;
+      color: #b85c7c;
+      margin: 0.3rem 0 0.2rem;
+      letter-spacing: 1px;
+    }
+    .envelope-sub {
+      font-size: 1.2rem;
+      color: #c97b98;
+      background: rgba(255, 235, 240, 0.7);
+      display: inline-block;
+      padding: 0.4rem 2rem;
+      border-radius: 60px;
+      backdrop-filter: blur(4px);
+      margin-top: 0.3rem;
+    }
+    .envelope-hint {
+      margin-top: 1.2rem;
+      font-size: 1rem;
+      color: #bc7b94;
+      background: rgba(255, 240, 245, 0.7);
+      padding: 0.5rem 1.5rem;
+      border-radius: 60px;
+      display: inline-block;
+      animation: pulseHint 2s infinite;
+    }
+    @keyframes pulseHint {
+      0%,100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.02); }
+    }
+
+
+
+        /* ---------- MUSIC PLAYER - TOP RIGHT ---------- */
+    .music-player {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 250, 248, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 14px 18px 14px 20px;
+      box-shadow: 0 8px 25px rgba(190, 110, 140, 0.25),
+                  0 0 0 1px rgba(255, 215, 230, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 100;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      transition: all 0.3s ease;
+      cursor: default;
+      min-width: 200px;
+      max-width: 280px;
+    }
+
+    .music-player:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(190, 110, 140, 0.3);
+    }
+
+    .music-player .icon {
+      font-size: 1.2rem;
+      line-height: 1;
+      opacity: 0.8;
+    }
+
+    .music-player .info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .music-player .song-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #b85c7c;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.3px;
+    }
+
+    .music-player .progress-bar {
+      width: 100%;
+      height: 3px;
+      background: rgba(200, 150, 170, 0.2);
+      border-radius: 10px;
+      margin-top: 5px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .music-player .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #f5a0b8, #d46a8a);
+      border-radius: 10px;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+
+    .music-player .controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .music-player .control-btn {
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 4px 5px;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      color: #b85c7c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.8;
+    }
+
+    .music-player .control-btn:hover {
+      background: rgba(255, 200, 215, 0.3);
+      transform: scale(1.1);
+      opacity: 1;
+    }
+
+    .music-player .volume-btn {
+      font-size: 0.95rem;
+    }
+
+    /* mobile responsive */
+    @media (max-width: 600px) {
+      .music-player {
+        top: 12px;
+        right: 12px;
+        padding: 10px 12px 10px 16px;
+        min-width: 150px;
+        max-width: 200px;
+        border-radius: 14px;
+      }
+      .music-player .song-name {
+        font-size: 0.7rem;
+      }
+      .music-player .control-btn {
+        font-size: 0.95rem;
+        padding: 3px 4px;
+      }
+      .music-player .icon {
+        font-size: 1rem;
+      }
+      .music-player .progress-bar {
+        height: 2px;
+        margin-top: 4px;
+      }
+    }
+
+    /* ---------- LETTER (hidden by default) ---------- */
+    .letter-container {
+      max-width: 780px;
+      width: 100%;
+      margin: 0 auto;
+      display: none;          /* hidden until envelope clicked */
+      animation: letterRise 0.9s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    }
+
+    @keyframes letterRise {
+      0% { opacity: 0; transform: translateY(30px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* the actual letter paper */
+    .letter-paper {
+      position: relative;
+      background: #fffdf8;
+      border-radius: 8px;
+      padding: 50px 55px 55px;
+      box-shadow: 0 25px 60px rgba(190, 110, 140, 0.25),
+                  0 3px 8px rgba(120, 80, 90, 0.12);
+      background-image: repeating-linear-gradient(
+        transparent,
+        transparent 31px,
+        rgba(220, 170, 180, 0.15) 32px
+      );
+      border: 1px solid rgba(255, 215, 230, 0.5);
+      margin-top: 1.8rem;
+    }
+
+    .tape {
+      position: absolute;
+      width: 115px;
+      height: 35px;
+      background: rgba(255, 190, 210, 0.75);
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      box-shadow: 0 3px 8px rgba(200, 120, 140, 0.15);
+      opacity: 0.9;
+      border-radius: 4px;
+    }
+
+    .letter-title {
+      text-align: center;
+      color: #b85c7c;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      font-weight: 600;
+    }
+    .letter-title span {
+      display: block;
+      font-size: 1.2rem;
+      margin-top: 6px;
+    }
+    .letter-paper p {
+      font-size: 1.08rem;
+      line-height: 2;
+      margin-bottom: 22px;
+      color: #4f3a42;
+    }
+    .highlight {
+      color: #b85c7c;
+      font-weight: 600;
+    }
+    .signature {
+      text-align: right;
+      margin-top: 40px;
+      color: #b85c7c;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    /* back button */
+    .back-button {
+      display: inline-block;
+      margin: 40px auto 10px;
+      padding: 12px 28px;
+      border-radius: 50px;
+      background: rgba(255, 230, 240, 0.85);
+      color: #a84e6c;
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.9);
+      box-shadow: 0 10px 20px rgba(220,120,150,0.2);
+      transition: 0.25s ease;
+      backdrop-filter: blur(4px);
+      z-index: 30;
+      position: relative;
+    }
+    .back-button:hover {
+      transform: translateY(-4px);
+      background: #ffd1df;
+      box-shadow: 0 15px 25px rgba(220,120,150,0.3);
+    }
+
+    /* floating hearts that burst from envelope */
+    .burst-heart {
+      position: fixed;
+      font-size: 2rem;
+      pointer-events: none;
+      z-index: 999;
+      animation: burstUp 1.6s ease-out forwards;
+    }
+    @keyframes burstUp {
+      0% { opacity: 1; transform: translate(0,0) scale(0.5) rotate(0deg); }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.3) rotate(40deg); }
+    }
+
+    /* responsive */
+    @media (max-width: 600px) {
+      .envelope-card { padding: 2rem 1.2rem; }
+      .envelope-title { font-size: 1.8rem; }
+      .letter-paper { padding: 35px 20px 40px; }
+      .letter-paper p { font-size: 1rem; line-height: 1.85; }
+      .letter-title { font-size: 1.6rem; }
+      .envelope-flap { width: 120px; height: 38px; font-size: 1.4rem; }
+    }
+
+    /* audio player hidden */
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- background blobs -->
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+
+  <!-- background floating hearts -->
+  <div class="bg-heart">💗</div>
+  <div class="bg-heart">🌸</div>
+  <div class="bg-heart">💗</div>
+  <div class="bg-heart">✨</div>
+
+  <!-- audio (autoplay) -->
+  <audio id="bgAudio" autoplay loop>
+    <source src="IMG_3084.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- ===== ENVELOPE (click to open) ===== -->
+  <div class="envelope-wrapper" id="envelopeWrapper">
+    <div class="envelope-card">
+      <div class="envelope-flap">💌</div>
+      <div class="envelope-icon">✉️</div>
+      <h2 class="envelope-title">You have 1 letter...</h2>
+      <div class="envelope-sub">💗 for you 💗</div>
+      <div class="envelope-hint">✨ tap to open ✨</div>
+    </div>
+  </div>
+
+  <!-- ===== LETTER (hidden initially) ===== -->
+  <div class="letter-container" id="letterContainer">
+
+    <div class="letter-paper">
+      <div class="tape"></div>
+
+      <h2 class="letter-title">
+        For My Baby 💗
+        <span>🌸</span>
+      </h2>
+
+      <p>
+        HAPPY BIRTHDAY BABYY!! 💗 I just wanted to write you a little letter for your birthday.
+        I know this isn't much for you, but I just wanted to create something a lil speaciallll
+        for you, something different, from other birthday wishes you might have received. Cause you deserve 
+        something speciall for you are the most special person to me MWAHHHH 💕.
+      </p>
+
+      <p>
+        Getting to meet you at one point of my life was on of the best things to happen to me.
+        You are a gift that i never thought i would have in my life 💓. From the moment we got to
+        know each other, my love for you kept growing and evolvingggg and i couldn't be more sure to 
+        say that it'll keep growing for the rest of my life. I'm so grateful that i somehow stumbled 
+        upon a soul so beautiful and pure like yours. You are the BEST and trust me, i mean it 💘. 
+      </p>
+
+      <p>
+        I love talking to you and i love listening to you even more. I love your tiny hands and i love your touches
+        even better. I love your voice and i adore your giggles more. I'm addicted to your kisses adn the soft lips 
+        of yours. I love the way you hold me, therefore i love your hugs. I love your brown glowy eyes and i love
+        the way you look at me. I love your accent, and even more when you speak Burmese.
+        From the most obvious features to the little subtle ones, I love everything about you. 😽
+      </p>
+
+      <p>
+        I love all the little things that make you <i>you</i>.  
+      </p>
+
+      <p>
+        I wouldn't want you to change yourself just to fit some idea of
+        perfection, because the person you are already means so much to me. 😻
+      </p>
+
+      <p>
+        One year ago, this is the very day that we started talking. Tbh kwa i wasn't expecting
+        to get to know you this much and i wasn't expexting for us to get along this well. BUT
+        here we areee and i couldn't be more happier to have you in my lifeeee. 😼
+      </p>
+
+      <p>
+        I wish that you could acheive all the things you want in life and i wish that you could become
+        everything that you've always wanted to be. May Allah bless you throughout your life
+        and helps you with all the things you you want in life and i wish to be by your side 
+        to support you in every phase of your life.💝
+      </p>
+
+      <p>
+        Looking back at everything we've shared, the first date, the first time 
+        we sat tgt in class, the first time i joined your friend group to play uno, the
+        times you tried to peek a look at me, the times we'd talk in the sch aisle, the times 
+        we'd text over the phone as soon as the sch's over even though
+        we were tgt in the same room, the time we had our first kiss, the times TR THI would tease us mid-class and you'd be like 
+        "Noo tr ma hok buuu" and laugh, the times when you pulled up to school even though you said you're not coming the night before (so not cool kwa),
+        i dont think would be able to forget any of those moments 
+        for the rest of my life.
+      </p>
+
+      <p>
+        The way you'd talk about random things when we talked in the hallway besides our classroom, the way
+        you'd look back down the hallway to make sure no one's coming before we kiss and the way you'd hold my hand in that balcony 😛.
+        I remember all those exact details, emotions, looks and feelings and i dont think i'll ever
+        be able to forget about them. 
+      </p>
+
+      <p>
+        I don't know exactly what the future is going to look like, but I
+        do know that I'm super duper grateful that our paths crossed. 
+      </p>
+
+      <p>
+        So on your birthday, I just want to remind you that - 
+      </p>
+
+      <p class="highlight">
+        I love you more than anything on this planet, baby. You are one of the special gifts God had blessed me with. You deserve
+        so much better, and therefore I'll become the better, perhaps the best version of myself, for you. 🤍
+      </p>
+
+      <p>
+        I hope you appreciate this little letter of mine, even tho it wouldn't mean much to you, I'd be sooo glad if this piece of 
+        letter made you smile even for a moment.
+      </p>
+
+      <p>
+        And thank you for making my days better, for making me feel special, for making me feel seen,
+        for making me feel loved, for making me know that i have you, for making me feel like i belong and for always supporting
+        me. I'm literally the happiest man alive when I'm with you, you're my safe space, my comfort and my everything. ❣️
+      </p>
+
+      <p>
+        I hope this next chapter of your life is even better than the last
+        one. I hope you grow, fulfill your desires, make your dreams come true, learn, laugh,
+        and create memories you'll never forget with your loved ones. And I hope that i also get to
+        be a part of those unforgettable memories of yours. Myrr gyi cx tl nor mwahmwah. 💓
+      </p>
+
+      <p>
+        Happy birthday, my love, my gorgeous, my baby, my chee dote lay. 💞
+      </p>
+
+      <p>
+        I love you, and I'm genuinely so grateful that you're a part of my
+        life. Another year of us, making memories together,
+        i hope our love towards each other grows overtime, and even if we unfortunately become 
+        seperated by distance, i promise to always be there for you and that i'll never leave your side.
+      </p>
+
+      <div class="signature">
+        With all my love,<br>
+        😽 Your baby.
+      </div>
+    </div>
+
+    <!-- back button inside letter container -->
+    <a href="index.html" class="back-button">← back to your birthday page 🎀</a>
+
+
+    <!-- ===== MUSIC PLAYER - TOP RIGHT ===== -->
+    <div class="music-player" id="musicPlayer">
+      <div class="icon">🎵</div>
+      <div class="info">
+        <div class="song-name" id="songName"> For My Sweetheart 💕</div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+      <div class="controls">
+        <button class="control-btn" id="playPauseBtn" title="Play/Pause">⏸️</button>
+        <button class="control-btn volume-btn" id="volumeBtn" title="Mute/Unmute">🔊</button>
+      </div>
+    </div>
+
+
+  
+
+  <script>
+    
+    (function() {
+      const wrapper = document.getElementById('envelopeWrapper');
+      const letterContainer = document.getElementById('letterContainer');
+      const audio = document.getElementById('bgAudio');
+
+      // burst hearts function
+      function burstHearts(count = 18) {
+        const emojis = ['💗', '🌸', '✨', '💖', '❤️', '💕', '💞', '🌷', '🌺', '🎀'];
+        for (let i = 0; i < count; i++) {
+          const heart = document.createElement('div');
+          heart.className = 'burst-heart';
+          heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          const x = window.innerWidth / 2 + (Math.random() - 0.5) * 200;
+          const y = window.innerHeight / 2 + (Math.random() - 0.5) * 160;
+          heart.style.left = x + 'px';
+          heart.style.top = y + 'px';
+          const tx = (Math.random() - 0.5) * 400;
+          const ty = (Math.random() - 0.5) * 400 - 200;
+          heart.style.setProperty('--tx', tx + 'px');
+          heart.style.setProperty('--ty', ty + 'px');
+          heart.style.fontSize = (1.4 + Math.random() * 1.6) + 'rem';
+          document.body.appendChild(heart);
+          setTimeout(() => heart.remove(), 1800);
+        }
+      }
+
+      // open envelope
+      function openEnvelope() {
+        // hide envelope with a quick fade
+        wrapper.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        wrapper.style.opacity = '0';
+        wrapper.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          wrapper.style.display = 'none';
+        }, 350);
+
+        // show letter container
+        letterContainer.style.display = 'block';
+        // trigger animation
+        letterContainer.style.animation = 'none';
+        requestAnimationFrame(() => {
+          letterContainer.style.animation = 'letterRise 0.9s cubic-bezier(0.23, 1, 0.32, 1) forwards';
+        });
+
+        // burst hearts
+        burstHearts(24);
+
+        // ensure audio plays (some browsers require user gesture)
+        if (audio) {
+          audio.play().catch(() => {});
+        }
+      }
+
+      // click on envelope
+      wrapper.addEventListener('click', openEnvelope);
+
+      // also allow tap on the card itself
+      wrapper.querySelector('.envelope-card').addEventListener('click', function(e) {
+        e.stopPropagation();
+        openEnvelope();
+      });
+
+      // if user clicks on the envelope hint or flap, same
+      document.querySelectorAll('.envelope-flap, .envelope-hint, .envelope-icon, .envelope-title, .envelope-sub').forEach(el => {
+        el.addEventListener('click', function(e) {
+          e.stopPropagation();
+          openEnvelope();
+        });
+      });
+
+      // auto-play audio after user interaction (if not already)
+      document.addEventListener('click', function() {
+        if (audio && audio.paused) {
+          audio.play().catch(() => {});
+        }
+      }, { once: true });
+
+    })();
+    // Music Player Controls
+(function() {
+  const audio = document.getElementById('bgAudio');
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  const volumeBtn = document.getElementById('volumeBtn');
+  const progressFill = document.getElementById('progressFill');
+  const songName = document.getElementById('songName');
+  const player = document.getElementById('musicPlayer');
+
+  let isPlaying = true;
+  let isMuted = false;
+
+  // Update progress bar
+  function updateProgress() {
+    if (audio.duration) {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      progressFill.style.width = percent + '%';
+    }
+    requestAnimationFrame(updateProgress);
+  }
+
+  // Toggle play/pause
+  function togglePlay() {
+    if (audio.paused) {
+      audio.play().catch(() => {});
+      playPauseBtn.textContent = '⏸️';
+      isPlaying = true;
+    } else {
+      audio.pause();
+      playPauseBtn.textContent = '▶️';
+      isPlaying = false;
+    }
+  }
+
+  // Toggle mute
+  function toggleMute() {
+    audio.muted = !audio.muted;
+    isMuted = audio.muted;
+    volumeBtn.textContent = isMuted ? '🔇' : '🔊';
+  }
+
+  // Click on progress bar to seek
+  player.querySelector('.progress-bar').addEventListener('click', function(e) {
+    if (audio.duration) {
+      const rect = this.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = x * audio.duration;
+    }
+  });
+
+  // Event listeners
+  playPauseBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    togglePlay();
+  });
+
+  volumeBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    toggleMute();
+  });
+
+  // Update when audio ends
+  audio.addEventListener('ended', function() {
+    playPauseBtn.textContent = '▶️';
+    isPlaying = false;
+    progressFill.style.width = '0%';
+  });
+
+  // Start progress update
+  updateProgress();
+
+  // Change song name on double click (just for fun)
+  player.addEventListener('dblclick', function() {
+    const names = ['our song 💕', 'for you 💗', 'baby\'s song 🎀', '✨ special ✨'];
+    const current = songName.textContent;
+    let newName = names[Math.floor(Math.random() * names.length)];
+    while (newName === current && names.length > 1) {
+      newName = names[Math.floor(Math.random() * names.length)];
+    }
+    songName.textContent = newName;
+  });
+
+})();
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+</html>
